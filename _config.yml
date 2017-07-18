@@ -1,0 +1,6 @@
+# general Jekyll config
+title: Andrew J. Rominger
+description: Eco-evolutionary research
+
+# build settings
+theme: cayman
