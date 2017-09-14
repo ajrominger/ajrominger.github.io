@@ -6,14 +6,14 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Laurent Hébert-Dufresne
-email: laurent.hebert.dufresne@gmail.com
-description: James S. McDonnell Postdoctoral Fellow at the Santa Fe Institute
-url: "http://laurenthebertdufresne.github.io" # the base hostname & protocol for your site
-twitter_username: LHDnets
-scholar_username: LdkfcuwAAAAJ
+title: Andy Rominger
+email: rominger@santafe.edu
+description: Omidyar Postdoctoral Fellow at the Santa Fe Institute
+url: "http://ajrominger.github.io" # the base hostname & protocol for your site
+#twitter_username: LHDnets
+scholar_username: zEB7niMAAAAJ
 #linkedin_username: lecomptedelhd
-#github_username: lecomptedelhd
+github_username: ajrominger
 
 include: ['_pages']
 exclude: ['bower_components/*.md','bower_components/*.html']
