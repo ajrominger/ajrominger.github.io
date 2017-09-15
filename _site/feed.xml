@@ -5,9 +5,48 @@
     <description>Omidyar Postdoctoral Fellow at the Santa Fe Institute</description>
     <link>http://ajrominger.github.io/</link>
     <atom:link href="http://ajrominger.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 14 Sep 2017 17:14:32 -0600</pubDate>
-    <lastBuildDate>Thu, 14 Sep 2017 17:14:32 -0600</lastBuildDate>
+    <pubDate>Fri, 15 Sep 2017 12:18:16 -0600</pubDate>
+    <lastBuildDate>Fri, 15 Sep 2017 12:18:16 -0600</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
+    
+      <item>
+        <title>Notes on an interesting morphospace evolution paper</title>
+        <description>&lt;p&gt;In a recent paper (Cooney et al. 2017), the authors argue that evolution of bill shape in birds confirms the hypothesis that adaptive radiation happens early in a clade’s diversification, filling niche space, and eventually leading to a slow down in diversification once the niche space becomes crowded. Their primary result supporting this claim is a re-constructed rapid increase in disparity followed by a slow-down in dispartiy across the tree of birds. This result they compare to null models based on Brownian motion along the given phylogeny, finding that disparity increases monotonically under the null model, in comparison to the sigmoidal pattern observed in the real data.&lt;/p&gt;
+
+&lt;p&gt;My question is: could the observed pattern nonetheless result from a process that does not depend on the hypothesis that niche space filling drives diversification slow-downs? One could imagine that this is possible becuase extinct lineages leave no trace of thier morpology and contribution to disparity. So even if the disparity through time plot is different from Brownian motion, could the niche space occupancy still be largely constant through time?&lt;/p&gt;
+
+&lt;p&gt;A simulatin proof of concept:&lt;/p&gt;
+
+&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;geiger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paleotree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;treFull&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rphylo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fossils&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tre&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drop.fossil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;treFull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ntrait&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;as.matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runif&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ntrait&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ncol&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runif&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ntrait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;traits&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sim.char&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;traitsPCA&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prcomp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;traits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here’s the idea for the simulation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;simulate many correlated traits through time&lt;/li&gt;
+  &lt;li&gt;look at how making a PCA for only extant taxa vs. extant and extinct taxa influences disparity through time&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cooney, Christopher R, Jen A Bright, Elliot JR Capp, Angela M Chira, Emma C Hughes, Christopher JA Moody, Lara O Nouri, Zoë K Varley, and Gavin H Thomas. 2017. “Mega-Evolutionary Dynamics of the Adaptive Radiation of Birds.” &lt;em&gt;Nature&lt;/em&gt; 542 (7641). Nature Research: 344–47.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 15 Sep 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/09/15/notebook.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/09/15/notebook.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Summer update</title>
@@ -27,96 +66,6 @@
         <pubDate>Mon, 06 Feb 2017 00:00:00 -0700</pubDate>
         <link>http://ajrominger.github.io/2017/02/06/netsci-2017-satellite.html</link>
         <guid isPermaLink="true">http://ajrominger.github.io/2017/02/06/netsci-2017-satellite.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>New paper in PRE</title>
-        <description>&lt;p&gt;&lt;a href=&quot;http://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.012314&quot;&gt;New paper out in PRE&lt;/a&gt; with Uttam Bhat and Munik Shrestha. We open an interesting new problem: Why is the emergence of k-core continuous in networks with triadic closure (transitive linking)? We find that triangles alone do not account for the richness of the phase transitions we observe, which hints at the critical role of overlapping triangles (non-trivial motifs). We are in dire need of better analytical tools to account for these overlapping motifs. To be continued…&lt;/p&gt;
-</description>
-        <pubDate>Wed, 18 Jan 2017 00:00:00 -0700</pubDate>
-        <link>http://ajrominger.github.io/2017/01/18/new-paper-in-pre.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2017/01/18/new-paper-in-pre.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>New NSF grant on network comparison</title>
-        <description>&lt;p&gt;&lt;a href=&quot;http://tuvalu.santafe.edu/~jgrochow/index.html&quot;&gt;Joshua Grochow&lt;/a&gt; and I were awarded a grant from NSF’s Division of Mathematical Sciences. Our project is titled &lt;a href=&quot;https://www.nsf.gov/awardsearch/showAward?AWD_ID=1622390&amp;amp;HistoricalAwards=false&quot;&gt;Network Comparison, a Cornerstone of the Foundations of Network Science&lt;/a&gt;. We should start the real work in the next few months, and we aim to come up with model-free tools of network comparison. To quote ourselves: “To break new ground, we must think in terms of structural distance rather than statistical inference.”&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Nov 2016 00:00:00 -0700</pubDate>
-        <link>http://ajrominger.github.io/2016/11/11/new-nsf-grant-on-network-comparison.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2016/11/11/new-nsf-grant-on-network-comparison.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>News and Views by Thilo Gross</title>
-        <description>&lt;p&gt;The always eloquent Thilo Gross wrote a really simple and interesting piece for Nature Physics titled &lt;a href=&quot;http://www.nature.com/nphys/journal/v12/n11/full/nphys3939.html?WT.ec_id=NPHYS-201611&quot;&gt;Complex networks: Don’t call in sick&lt;/a&gt;. The article covers our recent &lt;a href=&quot;http://www.nature.com/nphys/journal/v12/n11/full/nphys3832.html&quot;&gt;Nature Physics paper&lt;/a&gt; as well as the role of applied network science in general. Highly recommended.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 04 Nov 2016 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2016/11/04/news-and-views-by-thilo-gross.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2016/11/04/news-and-views-by-thilo-gross.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>New paper out in Nature Physics</title>
-        <description>&lt;p&gt;My new paper, with Sam Scarpino and Antoine Allard, is now out in &lt;a href=&quot;http://www.nature.com/nphys/journal/vaop/ncurrent/full/nphys3832.html#access&quot;&gt;Nature Physics&lt;/a&gt;. Main result: Institutions replacing sick workers who stay at home might be driving the spread of influenza. The paper has been gathering a lot of attention, and I especially like the the news articles from &lt;a href=&quot;http://www.irishtimes.com/news/health/using-substitute-workers-for-sick-staff-spreads-disease-study-finds-1.2741641&quot;&gt;The Irish Times&lt;/a&gt;, &lt;a href=&quot;https://psmag.com/how-staying-home-from-work-can-spread-disease-4dee9e7575f9#.nmw93dciv&quot;&gt;Pacific Standard&lt;/a&gt;, and &lt;a href=&quot;https://naturemicrobiologycommunity.nature.com/users/17778-ben-johnson/posts/11048-send-your-sick-colleague-home-but-don-t-hire-a-replacement&quot;&gt;Nature Microbiology&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 02 Aug 2016 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2016/08/02/new-paper-out-in-nature-physics.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2016/08/02/new-paper-out-in-nature-physics.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>I'll be at NetSci 2016 this summer in Seoul</title>
-        <description>&lt;p&gt;I’ll be talking about a new voter model project (with Dynamica alumni and Eric Libby) that has been getting a lot of attention here at SFI. I’ll also present the &lt;a href=&quot;https://arxiv.org/abs/1607.04632&quot;&gt;Onion Decomposition&lt;/a&gt; in one of the parallel sessions. Jean-Gabriel Young will talk about our recent work on the stochastic block model, Dan Larremore will unveil our secret project on the detection of dominance and influence hierarchies in networks, and Sam Scarpino will talk about our somewhat controversial &lt;a href=&quot;https://arxiv.org/abs/1509.00801&quot;&gt;influenza model&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Should be fun!&lt;/p&gt;
-</description>
-        <pubDate>Fri, 15 Apr 2016 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2016/04/15/i'll-be-at-netsci-2016-this-summer-in-seoul.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2016/04/15/i'll-be-at-netsci-2016-this-summer-in-seoul.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Old friends, new papers</title>
-        <description>&lt;p&gt;Back from &lt;a href=&quot;http://tuvalu.santafe.edu/events/workshops/index.php/Complex_Systems_Winter_School_2015&quot;&gt;SFI’s Complex Systems Winter School in India&lt;/a&gt; where I lecture on statistical physics and network theory. Two new projects were published while I was away: our &lt;a href=&quot;http://journals.aps.org/pre/abstract/10.1103/PhysRevE.92.062809&quot;&gt;Hierarchical Preferential Attachment model&lt;/a&gt; (with a &lt;a href=&quot;http://journals.aps.org/pre/kaleidoscope/pre/92/6/062809&quot;&gt;figure&lt;/a&gt; highlighted by PRE) and our &lt;a href=&quot;http://journals.aps.org/pre/abstract/10.1103/PhysRevE.92.062807&quot;&gt;most exhaustive and hardcore network ensemble allowing exact solution of bond percolation&lt;/a&gt; to date.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 19 Jan 2016 00:00:00 -0700</pubDate>
-        <link>http://ajrominger.github.io/2016/01/19/old-friends-new-papers.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2016/01/19/old-friends-new-papers.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>New projects in the pipeline</title>
-        <description>&lt;p&gt;I have two new projects on the arXiv, both with only very good friends. The &lt;a href=&quot;http://arxiv.org/abs/1509.00801&quot;&gt;first&lt;/a&gt; is a new adaptive network project to describe novel patterns that we found in influenza transmission. The &lt;a href=&quot;http://arxiv.org/abs/1510.08542&quot;&gt;second&lt;/a&gt; is a new network analysis algorithm which helps us look at different scales of organization at a glance. We have a lot of cool ideas in the work using this algorithm. Finally, a very interesting ecology project should be online soon. Stay tuned!&lt;/p&gt;
-</description>
-        <pubDate>Thu, 12 Nov 2015 00:00:00 -0700</pubDate>
-        <link>http://ajrominger.github.io/2015/11/12/new-projects-in-the-pipeline.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2015/11/12/new-projects-in-the-pipeline.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Almost a year later</title>
-        <description>&lt;p&gt;It’s been a while since the last update. Let’s just say I am super excited about many projects started in my first year at the Santa Fe Institute. One of the smaller ones was published a few days ago in &lt;a href=&quot;http://www.pnas.org/content/112/33/10551.abstract&quot;&gt;PNAS&lt;/a&gt; (open-access). The big result: interacting epidemics (or other dynamics) can spread faster on clustered network than on an (otherwise equivalent) unclustered network! SFI had a nice &lt;a href=&quot;http://santafe.edu/news/item/paper-when-isolated-groups-fuel-epidemics/&quot;&gt;write-up&lt;/a&gt; on it.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 03 Sep 2015 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2015/09/03/almost-a-year-later.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2015/09/03/almost-a-year-later.html</guid>
         
         
       </item>
