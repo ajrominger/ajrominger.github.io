@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <title>Notes from a meeting with Luis Bettencourt</title>
+  <meta name="description" content="Disconnect between dynamic processes and static theory">
+
+  <link href="https://fonts.googleapis.com/css?family=Lora|Source+Sans+Pro" rel="stylesheet">
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/bower_components/filament-sticky/fixedsticky.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ajrominger.github.io/2017/06/19/notes_luis.html">
+  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://ajrominger.github.io/feed.xml">
+</head>
+
+
+<body>
+
+<header class="site-header fixedsticky" data-fixed-sticky-position='{"top": true, "bottom":false}'>
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">
+      <img src="/img/profile.jpg" class="site-profile">
+      Andy Rominger
+    </a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <span class="fa fa-bars"></span>
+      </a>
+
+      <div class="trigger">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/research/">Research</a>
+          
+        
+          
+          <a class="page-link" href="/publications/">Publications</a>
+          
+        
+          
+          <a class="page-link" href="/notebook/">Notebook</a>
+          
+        
+          
+          <a class="page-link" href="/cv/">CV</a>
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<div class="page-content">
+    <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Notes from a meeting with Luis Bettencourt</h1>
+    <p class="post-meta"><time datetime="2017-06-19T00:00:00-06:00" itemprop="datePublished">Jun 19, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h2 id="disconnect-between-dynamic-processes-and-static-theory">Disconnect between dynamic processes and static theory</h2>
+
+<p>The argument is that processes relevant for the development of each theory occur at different scales of space and time. Thus from the ecological perspective, systems will equilibrate before the non-equilibrial effect of evolution can be detected. Thus it’s not suprising that ecological theories have been built on equilibrial assumptions. However, the question remains, when should evolutionary forces be relevant for ecological theory and predictions about communities generally? Answering this question should be seen as a major goal for eco-evo theory. (Note: one thing we know from work by—and inspired by—Ricklefs is that the regional pool, which is an evolutionary outcome, has a strong influence on the potential configuration of local communities. Nonetheless, these local communities could be completely equilibrial w.r.t. their region)</p>
+
+<p>The disconnect between equilibrial theory (e.g. ecological theory) and dynamic processes (e.g. evolution) is not unique to the ecology-evolution realm. Indeed, theories of urbanization, economic markets and ideal statistical mechanics are all based on equilibrium, despite complex dynamics being responsible for their production. When we try to make predictive theories for these systems when far from equilibrium we fail. Thus we’re left with the realization that we “don’t have good descriptions of dynamics that create complexity” (quote verbatim from Luis…it’s a good one).</p>
+
+<h2 id="what-constitutes-success">What constitutes success</h2>
+
+<p>In ecology we have several theories that predict equilibrium patterns and derive from statistical mechanical type ways of thinking: neutral theory and MaxEnt theories. Statistical mechanical ways of thinking are probably warrented for equilibrial ecology because a pleathora of mechanisms are valid for the assembly and maintenance of ecological communities, yet generality is seen across these communities. One success will be in unifying these theories—i.e., assuming each theory is valid in some limit, what is the universal theory whoes limits we must take in order to arrive at each specific theory. The larger success will be in understanding what dynamics, which brought to stationarity, yield this unified equilibrial theory.</p>
+
+<h2 id="two-approaches-to-exploring-dynamics">Two approaches to exploring dynamics</h2>
+
+<h3 id="assume-a-given-ecological-theory-is-right">1. Assume a given ecological theory is right.</h3>
+
+<p>Add dynamics and see what quantities are conserved and figure out how they are conserved—is it the absolute maximum that’s conserved or the average; if the average, we’re dealing with something like the canonical ensemble.</p>
+
+<h3 id="what-is-the-simpliest-physical-systems-that-evolves">2. What is the simpliest physical systems that evolves?</h3>
+
+<p>The answer is effecitively Maxwell’s demon. Luis has been working on this in a different context, but the logic applies. Take a device that collects energy but expends energy in the process.
+<script type="math/tex">\\frac{\\Delta E}{\\Delta t} = y - c = rE</script>
+ where <em>y</em> is the process by which energy is gained and <em>c</em> is the cost of gaining that energy. The big assumption is that this goes like a rate constant times energy. If that’s true, then solving that difference equation leads to
+<script type="math/tex">\\frac{1}{t} \\frac{\\text{ln}E(t)}{E\_0} = \\frac{1}{t}\\int\_0^t r(t')dt'</script>
+ The right hand side of this equation can be thought of as fitness, and thus scaled into individuals.</p>
+
+<p>Assuming the environment is variable, <em>r</em> will be variable, and because we integrate over <em>r</em> this leads to lognormal <em>E</em>. Thus if <em>E</em> is really what fitness is, we might expect lognormal population sizes. Something is most likely amiss here, as we don’t often see lognormals, except in transient systems. Zipf behavior is also possible if <em>r</em> is presumed to be constant. Work by Felsenstein (1978) uses similar logic and might be worth exploring for parallels, and also to see what SAD is suggested by his approach.</p>
+
+<p>One take-home message is that <em>E</em> (or perhaps ln<em>E</em> can be expected to be constant in probability, thus <em>N</em> can be expected by to be constant in probability and so MaxEnt type approaches may be warrented.</p>
+
+<h2 id="references">References</h2>
+
+<p>Felsenstein, Joseph. 1978. “Macroevolution in a Model Ecosystem.” <em>The American Naturalist</em> 112 (983). University of Chicago Press: 177–95.</p>
+
+  </div>
+
+</article>
+
+    </div>
+</div>
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Andy Rominger</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            <a href="mailto:rominger@santafe.edu">
+              <span class="fa fa-envelope-square"></span> rominger@santafe.edu
+            </a>
+          </li>
+          
+            <li>
+              <a href="//www.github.com/ajrominger" target="_blank">
+                <span class="fa fa-github-square"></span> ajrominger
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+            <li>
+              <a href="//scholar.google.ca/citations?hl=en&user=zEB7niMAAAAJ" target="_blank">
+                <span class="fa fa-graduation-cap"></span> Google Scholar
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+
+<script data-turbolinks-eval="false" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script data-turbolinks-eval="false" src="/bower_components/turbolinks/dist/turbolinks.js"></script>
+<script data-turbolinks-eval="false" src="/bower_components/filament-sticky/fixedsticky.js"></script>
+<script data-turbolinks-eval="false">Turbolinks.start();</script>
+<script src="/js/app.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-86512448-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <title>Paper notes for today</title>
+  <meta name="description" content="Lim and Marshall (2017)">
+
+  <link href="https://fonts.googleapis.com/css?family=Lora|Source+Sans+Pro" rel="stylesheet">
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/bower_components/filament-sticky/fixedsticky.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://ajrominger.github.io/2017/06/20/notes_papers.html">
+  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://ajrominger.github.io/feed.xml">
+</head>
+
+
+<body>
+
+<header class="site-header fixedsticky" data-fixed-sticky-position='{"top": true, "bottom":false}'>
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">
+      <img src="/img/profile.jpg" class="site-profile">
+      Andy Rominger
+    </a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <span class="fa fa-bars"></span>
+      </a>
+
+      <div class="trigger">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+          <a class="page-link" href="/research/">Research</a>
+          
+        
+          
+          <a class="page-link" href="/publications/">Publications</a>
+          
+        
+          
+          <a class="page-link" href="/notebook/">Notebook</a>
+          
+        
+          
+          <a class="page-link" href="/cv/">CV</a>
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<div class="page-content">
+    <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Paper notes for today</h1>
+    <p class="post-meta"><time datetime="2017-06-20T00:00:00-06:00" itemprop="datePublished">Jun 20, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h3 id="lim-and-marshall-2017">Lim and Marshall (2017)</h3>
+
+<p>Using Marshall’s earlier model they try to estimate diversity-dependent diversification tracking a changing carrying capacity across the Hawaiian archipelago as the islands change size following their ontogeny. They fit their deterministic model using least squares and compare it to alternatives (logistic growth) using AIC assuming Gaussian residuals. A few questions about this approach: 1. obviously first, what about anthropogenic extinction? This could be especially investigated with birds so figuring out the richness used by Lim and Marshall (2017) (and comparing it to fossil data) would be good 2. the mean of a non-linear stochastic process won’t be the same as its deterministic expression, so their curve shouldn’t actually be what we observe even if the model is right 3. Gaussian residuals may not be right given that the true process should be a birth-death process with non-linear birth and death terms 4. Should immigration really be rolled into “birth” (i.e. speciation)? Should the same species then be counted independently on each island? Or should immigration be kept separate? 5. How bad is linear birth-death with no carrying capacity? Especially when considering the true process is stochastic? 6. They claim all their models share the same number of params, but how could a model with one carrying capacity, a model with a carrying capacity for each island, and a model with a carrying capacity that changes with area all have the same number of params? 7. If we simulate processes with no carrying capacity or other mechanism, would we still get good fits from their model? In particular, what if immigration (or immigration + priority effects) was primarily responsible for the pattern and their good fit?</p>
+
+<h3 id="moen-and-wiens-2017">Moen and Wiens (2017)</h3>
+
+<p>Estimate diversification in frogs and show that whether or not a clade is arboreal accounts for ≈75% of explained variance. Big questions here: 1. If that’s true, what’s so special about arboreal habitat? Does escape into novel habitats drive most radiations? Arboreal occupancy evolved repeatedly, did it consistently lead to increased diversification? From Fig. 1 it seems like not. So is their inference more an artifact of their modeling choices? 2. Are diversification estimates robust? Or like other studies (e.g. Getz’s bird work) are they just a correlate of clade age? Fig. 1 seems to show that they are. Should look into this “method of moments” estimator (Magallon and Sanderson 2001).</p>
+
+<h3 id="cserg-et-al-2017">Cserg et al. (2017)</h3>
+
+<p>Find that range models for plants don’t predict their growth rates but do correlate with drivers of population persistence. Plants in climates predicted to be less favorable get smaller and show more variable demographic rates</p>
+
+<h1 id="references">References</h1>
+
+<p>Cserg, Anna M, Roberto Salguero-Gómez, Olivier Broennimann, Shaun R Coutts, Antoine Guisan, Amy L Angert, Erik Welk, et al. 2017. “Less Favourable Climates Constrain Demographic Strategies in Plants.” <em>Ecology Letters</em>. Wiley Online Library.</p>
+
+<p>Lim, Jun Y, and Charles R Marshall. 2017. “The True Tempo of Evolutionary Radiation and Decline Revealed on the Hawaiian Archipelago.” <em>Nature</em> 543 (7647). Nature Research: 710–13.</p>
+
+<p>Magallon, Susana, and Michael J Sanderson. 2001. “Absolute Diversification Rates in Angiosperm Clades.” <em>Evolution</em> 55 (9). BioOne: 1762–80.</p>
+
+<p>Moen, Daniel S, and John J Wiens. 2017. “Microhabitat and Climatic Niche Change Explain Patterns of Diversification Among Frog Families.” <em>The American Naturalist</em> 190 (1). University of Chicago Press Chicago, IL: 000–000.</p>
+
+  </div>
+
+</article>
+
+    </div>
+</div>
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Andy Rominger</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>
+            <a href="mailto:rominger@santafe.edu">
+              <span class="fa fa-envelope-square"></span> rominger@santafe.edu
+            </a>
+          </li>
+          
+            <li>
+              <a href="//www.github.com/ajrominger" target="_blank">
+                <span class="fa fa-github-square"></span> ajrominger
+              </a>
+            </li>
+          
+
+          
+
+          
+
+          
+            <li>
+              <a href="//scholar.google.ca/citations?hl=en&user=zEB7niMAAAAJ" target="_blank">
+                <span class="fa fa-graduation-cap"></span> Google Scholar
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+</body>
+
+<script data-turbolinks-eval="false" src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script data-turbolinks-eval="false" src="/bower_components/turbolinks/dist/turbolinks.js"></script>
+<script data-turbolinks-eval="false" src="/bower_components/filament-sticky/fixedsticky.js"></script>
+<script data-turbolinks-eval="false">Turbolinks.start();</script>
+<script src="/js/app.js"></script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-86512448-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</html>

@@ -5,8 +5,8 @@
     <description>Omidyar Postdoctoral Fellow at the Santa Fe Institute</description>
     <link>http://ajrominger.github.io/</link>
     <atom:link href="http://ajrominger.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 15 Sep 2017 12:18:16 -0600</pubDate>
-    <lastBuildDate>Fri, 15 Sep 2017 12:18:16 -0600</lastBuildDate>
+    <pubDate>Fri, 15 Sep 2017 14:48:20 -0600</pubDate>
+    <lastBuildDate>Fri, 15 Sep 2017 14:48:20 -0600</lastBuildDate>
     <generator>Jekyll v3.2.1</generator>
     
       <item>
@@ -41,31 +41,158 @@
 
 &lt;p&gt;Cooney, Christopher R, Jen A Bright, Elliot JR Capp, Angela M Chira, Emma C Hughes, Christopher JA Moody, Lara O Nouri, Zoë K Varley, and Gavin H Thomas. 2017. “Mega-Evolutionary Dynamics of the Adaptive Radiation of Birds.” &lt;em&gt;Nature&lt;/em&gt; 542 (7641). Nature Research: 344–47.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 15 Sep 2017 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2017/09/15/notebook.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2017/09/15/notebook.html</guid>
+        <pubDate>Thu, 10 Aug 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/08/10/notes_reading.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/08/10/notes_reading.html</guid>
+        
+        <category>equilibrium</category>
+        
+        <category>diversification</category>
+        
+        <category>evo-ecology</category>
         
         
       </item>
     
       <item>
-        <title>Summer update</title>
-        <description>&lt;p&gt;Two very interesting papers were published this month. The first is a Zika project with the &lt;a href=&quot;https://contnet2017.github.io/&quot;&gt;Contagion on Networks&lt;/a&gt; team showing that the asymmetric transmission across sexes leads to a double epidemic transitions; the paper was published in &lt;a href=&quot;http://www.pnas.org/content/early/2017/08/07/1703073114.full&quot;&gt;PNAS&lt;/a&gt;. The second one is the result of an SFI working group, which started by studying the strategies of algae life cycles and ended up re-discovering game theory by studying political dynamics on modular networks; this crazy paper was published in &lt;a href=&quot;https://www.nature.com/articles/s41598-017-07621-x&quot;&gt;Scientific Reports&lt;/a&gt;.&lt;/p&gt;
+        <title>Notes on the SFI postdoc conference today</title>
+        <description>&lt;h1 id=&quot;lunch-with-artemy&quot;&gt;Lunch with Artemy&lt;/h1&gt;
+
+&lt;p&gt;What can we learn from parameterizing an Ising model for spatial occupancy?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;calculate box counting function across scales&lt;/li&gt;
+  &lt;li&gt;compare spatial box counting to Poisson process&lt;/li&gt;
+  &lt;li&gt;We know from Harte’s work that spatial patterns aren’t fractal, but there’s a chance they could still be critical in the Ising model due to the finite lattice of sampled communities&lt;/li&gt;
+  &lt;li&gt;But perhaps more likely, systems are sub-critical&lt;/li&gt;
+  &lt;li&gt;What could we learn from the distribution of Ising model parameters across co-occurring species?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;ideas-from-talks&quot;&gt;Ideas from talks&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Look into &lt;a href=&quot;http://www.elizabethroberto.com/research&quot;&gt;Elizabeth Roberto’s work&lt;/a&gt; on spatial inequality in cities&lt;/li&gt;
+  &lt;li&gt;Are Lauren Shoemaker’s models of coexistence facilitated by environmental stochasticity similar to Chesson’s storage effect model?&lt;/li&gt;
+  &lt;li&gt;Detailed models of coexistence concern themselves with the persistence of identifiable species; this contrasts with most (all?) null/neutral/statistical models of SADs which concern themselves with macroscopic patterns of (usually) indistinguishable species. Equilibria in these null models are for the macrostate but ambivilant about the microstates (sensu MacArthur and Wilson’s “dynamic equilibrium”), while equilibria in coexistence models are defined on the microstates. From the macroscopic perspective, does the term “stabely coexist” really matter?&lt;/li&gt;
+  &lt;li&gt;Marion could be a good person to ask and work with about social networks and fake news…she might have already done it&lt;/li&gt;
+  &lt;li&gt;Social cognition could be the right framing for thinking about how bias against groups in perpetuated&lt;/li&gt;
+  &lt;li&gt;Dan, Marion and Elly have a cool sounding project on reputational poverty traps. This seemed more like it was for networks where reputation is biased by associate, but they might be interested in thinking about the “poverty traps” imposed by implicit biases…that may or may not have a basis in networks&lt;/li&gt;
+&lt;/ul&gt;
 </description>
-        <pubDate>Sun, 20 Aug 2017 00:00:00 -0600</pubDate>
-        <link>http://ajrominger.github.io/2017/08/20/summer-update.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2017/08/20/summer-update.html</guid>
+        <pubDate>Wed, 12 Jul 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/07/12/notes_postdocConference.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/07/12/notes_postdocConference.html</guid>
+        
+        <category>statmech-of-biodiversity</category>
+        
+        <category>equality</category>
+        
+        <category>equilibrium</category>
         
         
       </item>
     
       <item>
-        <title>NetSci 2017 Satellite</title>
-        <description>&lt;p&gt;Antoine Allard, Ben Althouse, Sam Scarpino and I are organizing a satellite conference for &lt;a href=&quot;http://netsci2017.net/&quot;&gt;NetSci 2017&lt;/a&gt; called &lt;a href=&quot;https://contnet2017.github.io/&quot;&gt;Contagion on Networks 2017&lt;/a&gt; and focused on the dynamics of contagion. We are already receiving abstracts, and will fully consider all contributions sent to us before March 12.&lt;/p&gt;
+        <title>Paper notes for today</title>
+        <description>&lt;h3 id=&quot;lim-and-marshall-2017&quot;&gt;Lim and Marshall (2017)&lt;/h3&gt;
+
+&lt;p&gt;Using Marshall’s earlier model they try to estimate diversity-dependent diversification tracking a changing carrying capacity across the Hawaiian archipelago as the islands change size following their ontogeny. They fit their deterministic model using least squares and compare it to alternatives (logistic growth) using AIC assuming Gaussian residuals. A few questions about this approach: 1. obviously first, what about anthropogenic extinction? This could be especially investigated with birds so figuring out the richness used by Lim and Marshall (2017) (and comparing it to fossil data) would be good 2. the mean of a non-linear stochastic process won’t be the same as its deterministic expression, so their curve shouldn’t actually be what we observe even if the model is right 3. Gaussian residuals may not be right given that the true process should be a birth-death process with non-linear birth and death terms 4. Should immigration really be rolled into “birth” (i.e. speciation)? Should the same species then be counted independently on each island? Or should immigration be kept separate? 5. How bad is linear birth-death with no carrying capacity? Especially when considering the true process is stochastic? 6. They claim all their models share the same number of params, but how could a model with one carrying capacity, a model with a carrying capacity for each island, and a model with a carrying capacity that changes with area all have the same number of params? 7. If we simulate processes with no carrying capacity or other mechanism, would we still get good fits from their model? In particular, what if immigration (or immigration + priority effects) was primarily responsible for the pattern and their good fit?&lt;/p&gt;
+
+&lt;h3 id=&quot;moen-and-wiens-2017&quot;&gt;Moen and Wiens (2017)&lt;/h3&gt;
+
+&lt;p&gt;Estimate diversification in frogs and show that whether or not a clade is arboreal accounts for ≈75% of explained variance. Big questions here: 1. If that’s true, what’s so special about arboreal habitat? Does escape into novel habitats drive most radiations? Arboreal occupancy evolved repeatedly, did it consistently lead to increased diversification? From Fig. 1 it seems like not. So is their inference more an artifact of their modeling choices? 2. Are diversification estimates robust? Or like other studies (e.g. Getz’s bird work) are they just a correlate of clade age? Fig. 1 seems to show that they are. Should look into this “method of moments” estimator (Magallon and Sanderson 2001).&lt;/p&gt;
+
+&lt;h3 id=&quot;cserg-et-al-2017&quot;&gt;Cserg et al. (2017)&lt;/h3&gt;
+
+&lt;p&gt;Find that range models for plants don’t predict their growth rates but do correlate with drivers of population persistence. Plants in climates predicted to be less favorable get smaller and show more variable demographic rates&lt;/p&gt;
+
+&lt;h1 id=&quot;references&quot;&gt;References&lt;/h1&gt;
+
+&lt;p&gt;Cserg, Anna M, Roberto Salguero-Gómez, Olivier Broennimann, Shaun R Coutts, Antoine Guisan, Amy L Angert, Erik Welk, et al. 2017. “Less Favourable Climates Constrain Demographic Strategies in Plants.” &lt;em&gt;Ecology Letters&lt;/em&gt;. Wiley Online Library.&lt;/p&gt;
+
+&lt;p&gt;Lim, Jun Y, and Charles R Marshall. 2017. “The True Tempo of Evolutionary Radiation and Decline Revealed on the Hawaiian Archipelago.” &lt;em&gt;Nature&lt;/em&gt; 543 (7647). Nature Research: 710–13.&lt;/p&gt;
+
+&lt;p&gt;Magallon, Susana, and Michael J Sanderson. 2001. “Absolute Diversification Rates in Angiosperm Clades.” &lt;em&gt;Evolution&lt;/em&gt; 55 (9). BioOne: 1762–80.&lt;/p&gt;
+
+&lt;p&gt;Moen, Daniel S, and John J Wiens. 2017. “Microhabitat and Climatic Niche Change Explain Patterns of Diversification Among Frog Families.” &lt;em&gt;The American Naturalist&lt;/em&gt; 190 (1). University of Chicago Press Chicago, IL: 000–000.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 06 Feb 2017 00:00:00 -0700</pubDate>
-        <link>http://ajrominger.github.io/2017/02/06/netsci-2017-satellite.html</link>
-        <guid isPermaLink="true">http://ajrominger.github.io/2017/02/06/netsci-2017-satellite.html</guid>
+        <pubDate>Tue, 20 Jun 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/06/20/notes_papers.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/06/20/notes_papers.html</guid>
+        
+        <category>hawaii</category>
+        
+        <category>evo-ecology</category>
+        
+        <category>equilibrium</category>
+        
+        <category>diversification</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Ideas about monopolies</title>
+        <description>&lt;p&gt;An interesting &lt;a href=&quot;https://www.theatlantic.com/business/archive/2017/06/word-monopoly-antitrust/530169/?utm_source=feed&quot;&gt;article&lt;/a&gt; in the &lt;em&gt;Atlantic&lt;/em&gt; today documents the rise and fall of public interest in monopolies and, by extension, a fall in opposition to their detrimental effects on society. The article links to sources documenting some of those detrimental effects, including income inequality and stagnant wages.&lt;/p&gt;
+
+&lt;p&gt;This made me recall another interesting &lt;a href=&quot;https://www.theatlantic.com/politics/archive/2016/10/how-democrats-killed-their-populist-soul/504710/&quot;&gt;article&lt;/a&gt; (also in the &lt;em&gt;Atlantic&lt;/em&gt;) about how the Democratic Party was taken over by cooperate-leaning groups and “lost its populist soul,” including adopting the view that monopolies were actually good for society because of economies of scale they could provide.&lt;/p&gt;
+
+&lt;p&gt;In all we see that when an issue falls out of public interest or favor, we see the co-option of the political process by financial interests that may not be in the people’s interest. This implies a constant struggle between the awareness and advocacy—to influence politicians and affect change—of citizens for their best interest, and the financially-driven interest of the few. Those with financial power will use it to affect change for their own benefit. In the current system this cannot be prevented without active public interest and involvement (based on sound information) in politics. Antitrust legislation should have protected the public from “corporate dictatorship” (quote from &lt;a href=&quot;http://www.presidency.ucsb.edu/ws/?pid=15314&quot;&gt;FRD speach&lt;/a&gt;) but it didn’t. This could either be because the public forgot to care about monopolies and thus monopolistic groups could hold sway over government decisions (as the first &lt;a href=&quot;https://www.theatlantic.com/business/archive/2017/06/word-monopoly-antitrust/530169/?utm_source=feed&quot;&gt;article&lt;/a&gt; suggests) or it could be that monopolistic groups forced the government to force the people to forget to care. We need to figure out which one, and figure out how to prevent that from continuing to happen. Is apathy a property of the people or a property of a corrupt system?&lt;/p&gt;
+</description>
+        <pubDate>Tue, 20 Jun 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/06/20/notes_monopoly.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/06/20/notes_monopoly.html</guid>
+        
+        <category>equality</category>
+        
+        <category>policy</category>
+        
+        <category>economics</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Notes from a meeting with Luis Bettencourt</title>
+        <description>&lt;h2 id=&quot;disconnect-between-dynamic-processes-and-static-theory&quot;&gt;Disconnect between dynamic processes and static theory&lt;/h2&gt;
+
+&lt;p&gt;The argument is that processes relevant for the development of each theory occur at different scales of space and time. Thus from the ecological perspective, systems will equilibrate before the non-equilibrial effect of evolution can be detected. Thus it’s not suprising that ecological theories have been built on equilibrial assumptions. However, the question remains, when should evolutionary forces be relevant for ecological theory and predictions about communities generally? Answering this question should be seen as a major goal for eco-evo theory. (Note: one thing we know from work by—and inspired by—Ricklefs is that the regional pool, which is an evolutionary outcome, has a strong influence on the potential configuration of local communities. Nonetheless, these local communities could be completely equilibrial w.r.t. their region)&lt;/p&gt;
+
+&lt;p&gt;The disconnect between equilibrial theory (e.g. ecological theory) and dynamic processes (e.g. evolution) is not unique to the ecology-evolution realm. Indeed, theories of urbanization, economic markets and ideal statistical mechanics are all based on equilibrium, despite complex dynamics being responsible for their production. When we try to make predictive theories for these systems when far from equilibrium we fail. Thus we’re left with the realization that we “don’t have good descriptions of dynamics that create complexity” (quote verbatim from Luis…it’s a good one).&lt;/p&gt;
+
+&lt;h2 id=&quot;what-constitutes-success&quot;&gt;What constitutes success&lt;/h2&gt;
+
+&lt;p&gt;In ecology we have several theories that predict equilibrium patterns and derive from statistical mechanical type ways of thinking: neutral theory and MaxEnt theories. Statistical mechanical ways of thinking are probably warrented for equilibrial ecology because a pleathora of mechanisms are valid for the assembly and maintenance of ecological communities, yet generality is seen across these communities. One success will be in unifying these theories—i.e., assuming each theory is valid in some limit, what is the universal theory whoes limits we must take in order to arrive at each specific theory. The larger success will be in understanding what dynamics, which brought to stationarity, yield this unified equilibrial theory.&lt;/p&gt;
+
+&lt;h2 id=&quot;two-approaches-to-exploring-dynamics&quot;&gt;Two approaches to exploring dynamics&lt;/h2&gt;
+
+&lt;h3 id=&quot;assume-a-given-ecological-theory-is-right&quot;&gt;1. Assume a given ecological theory is right.&lt;/h3&gt;
+
+&lt;p&gt;Add dynamics and see what quantities are conserved and figure out how they are conserved—is it the absolute maximum that’s conserved or the average; if the average, we’re dealing with something like the canonical ensemble.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-the-simpliest-physical-systems-that-evolves&quot;&gt;2. What is the simpliest physical systems that evolves?&lt;/h3&gt;
+
+&lt;p&gt;The answer is effecitively Maxwell’s demon. Luis has been working on this in a different context, but the logic applies. Take a device that collects energy but expends energy in the process.
+&lt;script type=&quot;math/tex&quot;&gt;\\frac{\\Delta E}{\\Delta t} = y - c = rE&lt;/script&gt;
+ where &lt;em&gt;y&lt;/em&gt; is the process by which energy is gained and &lt;em&gt;c&lt;/em&gt; is the cost of gaining that energy. The big assumption is that this goes like a rate constant times energy. If that’s true, then solving that difference equation leads to
+&lt;script type=&quot;math/tex&quot;&gt;\\frac{1}{t} \\frac{\\text{ln}E(t)}{E\_0} = \\frac{1}{t}\\int\_0^t r(t')dt'&lt;/script&gt;
+ The right hand side of this equation can be thought of as fitness, and thus scaled into individuals.&lt;/p&gt;
+
+&lt;p&gt;Assuming the environment is variable, &lt;em&gt;r&lt;/em&gt; will be variable, and because we integrate over &lt;em&gt;r&lt;/em&gt; this leads to lognormal &lt;em&gt;E&lt;/em&gt;. Thus if &lt;em&gt;E&lt;/em&gt; is really what fitness is, we might expect lognormal population sizes. Something is most likely amiss here, as we don’t often see lognormals, except in transient systems. Zipf behavior is also possible if &lt;em&gt;r&lt;/em&gt; is presumed to be constant. Work by Felsenstein (1978) uses similar logic and might be worth exploring for parallels, and also to see what SAD is suggested by his approach.&lt;/p&gt;
+
+&lt;p&gt;One take-home message is that &lt;em&gt;E&lt;/em&gt; (or perhaps ln&lt;em&gt;E&lt;/em&gt; can be expected to be constant in probability, thus &lt;em&gt;N&lt;/em&gt; can be expected by to be constant in probability and so MaxEnt type approaches may be warrented.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;p&gt;Felsenstein, Joseph. 1978. “Macroevolution in a Model Ecosystem.” &lt;em&gt;The American Naturalist&lt;/em&gt; 112 (983). University of Chicago Press: 177–95.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 19 Jun 2017 00:00:00 -0600</pubDate>
+        <link>http://ajrominger.github.io/2017/06/19/notes_luis.html</link>
+        <guid isPermaLink="true">http://ajrominger.github.io/2017/06/19/notes_luis.html</guid>
+        
+        <category>equilibrium</category>
+        
+        <category>evo-ecology</category>
         
         
       </item>
