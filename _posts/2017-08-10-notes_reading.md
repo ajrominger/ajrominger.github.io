@@ -2,7 +2,8 @@
 layout: post
 title: "Notes on an interesting morphospace evolution paper"
 author: "A. J. Rominger"
-date: "15 September 2017"
+date: "10 August 2017"
+tags: equilibrium diversification evo-ecology
 ---
 
 In a recent paper (Cooney et al. 2017), the authors argue that evolution of bill shape in birds confirms the hypothesis that adaptive radiation happens early in a clade's diversification, filling niche space, and eventually leading to a slow down in diversification once the niche space becomes crowded. Their primary result supporting this claim is a re-constructed rapid increase in disparity followed by a slow-down in dispartiy across the tree of birds. This result they compare to null models based on Brownian motion along the given phylogeny, finding that disparity increases monotonically under the null model, in comparison to the sigmoidal pattern observed in the real data.
