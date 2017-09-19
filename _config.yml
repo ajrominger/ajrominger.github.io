@@ -16,7 +16,7 @@ scholar_username: zEB7niMAAAAJ
 github_username: ajrominger
 
 include: ['_pages']
-exclude: ['bower_components/*.md','bower_components/*.html','_pages/*.Rmd']
+exclude: ['bower_components/*.md','bower_components/*.html','_pages/*.Rmd', './*.R']
 
 # Build settings
 markdown: kramdown
