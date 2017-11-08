@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /research/evolMaxEnt
+exclude: true
 ---
 
 ## Evolutionary community assembly of Hawaiian arthropods

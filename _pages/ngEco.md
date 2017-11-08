@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /research/ngEco
+exclude: true
 ---
 
 ## Next generation ecology 

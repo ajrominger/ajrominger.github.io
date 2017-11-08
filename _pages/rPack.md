@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /research/rPack
+exclude: true
 ---
 
 ## R packages
