@@ -1,7 +1,6 @@
 ---
 layout: page
 title: Notebook
-menu: main
 permalink: /notebook/
 weight: 3
 ---

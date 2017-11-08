@@ -1,6 +1,7 @@
 ---
 layout: page
 permalink: /research/sstat
+exclude: true
 ---
 
 ## Superstatistics of the Phanerozoic
