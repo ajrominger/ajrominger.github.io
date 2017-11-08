@@ -5,4 +5,4 @@ permalink: /publications/
 weight: 2
 ---
 
-This is a stub. More soon.
+See my Google Scholar [profile](https://scholar.google.com/citations?user=zEB7niMAAAAJ&hl=en).
