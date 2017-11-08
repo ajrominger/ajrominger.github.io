@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Research
+menu: main
 permalink: /research/
 weight: 1
 ---

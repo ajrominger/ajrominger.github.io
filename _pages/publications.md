@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Publications
+menu: main
 permalink: /publications/
 weight: 2
 ---
