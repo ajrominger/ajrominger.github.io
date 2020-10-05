@@ -1,0 +1,76 @@
+I"L<ul class="post-list">
+  
+    <li>
+      May 21, 2018
+      <h2>
+      <a href="/2018/05/21/gettingDNA.html">Getting sequence data with R</a>
+      </h2>
+      <p>I’ve always been enamored with the genus <em>Castilleja</em>. I thought it would be fun to see how much sequence data there is for the group in the hopes of one day doing a cool phylogenetic/biogeographic study.</p>
+
+    </li>
+  
+    <li>
+      Nov 10, 2017
+      <h2>
+      <a href="/2017/11/10/notes_gdm.html">Quadratic time in evolution</a>
+      </h2>
+      <p>Several models of diversification include a quadratic term for time (Whittaker, Triantis, and Ladle 2008, Lim and Marshall (2017)). This is phenomenological at best and model misspecification at worst. Phenomenological because the real argument is that what controls speciation and extinction (namely habitat area) is itself approximately quadratic in time. So here, time should be linear, but the rates should vary with area. The misspecification from from the other argument for quadratic time, which is that species compete under a carrying capacity that changes again with area. To model this correctly, time again needs to be linear and carrying capacity needs to change (linearly) with area.</p>
+
+    </li>
+  
+    <li>
+      Sep 27, 2017
+      <h2>
+      <a href="/2017/09/27/meteR_talk.html">A talk I'll be giving at the AMNH</a>
+      </h2>
+      <p>Here’s a talk I’ll be giving about the <em>meteR</em> package at the AMNH:</p>
+
+    </li>
+  
+    <li>
+      Aug 10, 2017
+      <h2>
+      <a href="/2017/08/10/notes_reading.html">Notes on an interesting morphospace evolution paper</a>
+      </h2>
+      <p>In a recent paper (Cooney et al. 2017), the authors argue that evolution of bill shape in birds confirms the hypothesis that adaptive radiation happens early in a clade’s diversification, filling niche space, and eventually leading to a slow down in diversification once the niche space becomes crowded. Their primary result supporting this claim is a re-constructed rapid increase in disparity followed by a slow-down in dispartiy across the tree of birds. This result they compare to null models based on Brownian motion along the given phylogeny, finding that disparity increases monotonically under the null model, in comparison to the sigmoidal pattern observed in the real data.</p>
+
+    </li>
+  
+    <li>
+      Jul 12, 2017
+      <h2>
+      <a href="/2017/07/12/notes_postdocConference.html">Notes on the SFI postdoc conference today</a>
+      </h2>
+      <h1 id="lunch-with-artemy">Lunch with Artemy</h1>
+
+    </li>
+  
+    <li>
+      Jun 20, 2017
+      <h2>
+      <a href="/2017/06/20/notes_papers.html">Paper notes for today</a>
+      </h2>
+      <h3 id="lim-and-marshall-2017">Lim and Marshall (2017)</h3>
+
+    </li>
+  
+    <li>
+      Jun 20, 2017
+      <h2>
+      <a href="/2017/06/20/notes_monopoly.html">Ideas about monopolies</a>
+      </h2>
+      <p>An interesting <a href="https://www.theatlantic.com/business/archive/2017/06/word-monopoly-antitrust/530169/?utm_source=feed">article</a> in the <em>Atlantic</em> today documents the rise and fall of public interest in monopolies and, by extension, a fall in opposition to their detrimental effects on society. The article links to sources documenting some of those detrimental effects, including income inequality and stagnant wages.</p>
+
+    </li>
+  
+    <li>
+      Jun 19, 2017
+      <h2>
+      <a href="/2017/06/19/notes_luis.html">Notes from a meeting with Luis Bettencourt</a>
+      </h2>
+      <h2 id="disconnect-between-dynamic-processes-and-static-theory">Disconnect between dynamic processes and static theory</h2>
+
+    </li>
+  
+</ul>
+:ET
