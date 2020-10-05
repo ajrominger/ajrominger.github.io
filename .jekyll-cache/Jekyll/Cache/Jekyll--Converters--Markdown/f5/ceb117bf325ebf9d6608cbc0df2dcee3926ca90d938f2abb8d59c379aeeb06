@@ -1,0 +1,8 @@
+I"D<p>Several models of diversification include a quadratic term for time (Whittaker, Triantis, and Ladle 2008, Lim and Marshall (2017)). This is phenomenological at best and model misspecification at worst. Phenomenological because the real argument is that what controls speciation and extinction (namely habitat area) is itself approximately quadratic in time. So here, time should be linear, but the rates should vary with area. The misspecification from from the other argument for quadratic time, which is that species compete under a carrying capacity that changes again with area. To model this correctly, time again needs to be linear and carrying capacity needs to change (linearly) with area.</p>
+
+<p>Quadratic time implies something different entirely. It implies species compete for <em>time</em>, which could be best thought of as the system being fixed by an upper carrying capacity and limited by <em>innovation</em>.</p>
+
+<p>Lim, Jun Y, and Charles R Marshall. 2017. “The True Tempo of Evolutionary Radiation and Decline Revealed on the Hawaiian Archipelago.” <em>Nature</em> 543 (7647). Nature Research: 710–13.</p>
+
+<p>Whittaker, Robert J, Kostas A Triantis, and Richard J Ladle. 2008. “A General Dynamic Theory of Oceanic Island Biogeography.” <em>Journal of Biogeography</em> 35 (6). Wiley Online Library: 977–94.</p>
+:ET

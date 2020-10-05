@@ -2,123 +2,109 @@
 
 <p>The folks at <a href="https://ropensci.org/">rOpenSci</a> have given us a lot of help with the package <em>rentrez</em>. Below I work through getting actual sequence data for all <em>Castilleja</em> in GenBank.</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">XML</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">XML</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">rentrez</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># retrieve Castilleja sequence IDs
+</span><span class="c1"># retrieve Castilleja sequence IDs</span><span class="w">
 </span><span class="n">castilleja</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">entrez_search</span><span class="p">(</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'nuccore'</span><span class="p">,</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Castilleja[ORGN]'</span><span class="p">,</span><span class="w"> 
                             </span><span class="n">retmax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># get one sequence
+</span><span class="c1"># get one sequence</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">entrez_fetch</span><span class="p">(</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'nuccore'</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">castilleja</span><span class="o">$</span><span class="n">ids</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> 
                   </span><span class="n">rettype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'native'</span><span class="p">,</span><span class="w"> </span><span class="n">retmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'xml'</span><span class="p">,</span><span class="w"> 
                   </span><span class="n">parsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># parse XML to list
+</span><span class="c1"># parse XML to list</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">xmlToList</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h2 id="figuring-out-the-xml">Figuring out the XML</h2>
 
 <p>With that one sequence in hand we need to figure out what from the unruly XML we want. I’d like information about the sequence ID, taxon sequenced, what was sequenced (locus or primers), where the specimen comes from, museum curation information, publication information, and of course the sequence itself.</p>
 
-<p>Getting those things is just a matter of figuring out where they live, which I have no better solution for other than poking around in the XML. Which is how I got the following. First note there are redundancies in the XML nodes, so if we convert the list <code class="highlighter-rouge">x</code> into a vector, each entry will have a unique name because all the nodes are concatenated.</p>
+<p>Getting those things is just a matter of figuring out where they live, which I have no better solution for other than poking around in the XML. Which is how I got the following. First note there are redundancies in the XML nodes, so if we convert the list <code class="language-plaintext highlighter-rouge">x</code> into a vector, each entry will have a unique name because all the nodes are concatenated.</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># turn list into vector
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># turn list into vector</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># all nodes share this in common:
+</span><span class="c1"># all nodes share this in common:</span><span class="w">
 </span><span class="n">basePath</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq'</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h3 id="sequence-id">Sequence ID</h3>
 
 <p>GenBank:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Bioseq_id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id_genbank'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Textseq-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Textseq-id_accession'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_id.Seq-id.Seq-id_genbank.Textseq-id.Textseq-id_accession 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_id.Seq-id.Seq-id_genbank.Textseq-id.Textseq-id_accession 
 ##                                                                                                        "MG220179"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Broader NCBI:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Bioseq_id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id_gi'</span><span class="p">,</span><span class="w">
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_id.Seq-id.Seq-id_gi 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_id.Seq-id.Seq-id_gi 
 ##                                                                 "1331395866"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="taxon">Taxon</h3>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w">
         </span><span class="s1">'BioSource_org'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref_taxname'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_taxname 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_taxname 
 ##                                                                                                                           "Castilleja rupicola"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="locus-information">Locus information</h3>
 
 <p>This can be tricky, some is in the description</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_title'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>##                                                                                                    Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_title 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##                                                                                                    Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_title 
 ## "Castilleja rupicola voucher CCDB-24910-B07 5.8S ribosomal RNA gene, partial sequence; internal transcribed spacer 2, complete sequence; and large subunit ribosomal RNA gene, partial sequence."
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>More can be found in other attributes</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_molinfo'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'MolInfo'</span><span class="p">,</span><span class="w"> </span><span class="s1">'MolInfo_biomol'</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">,</span><span class="w"> </span><span class="s1">'attrs.value'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_molinfo.MolInfo.MolInfo_biomol..attrs.value 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_molinfo.MolInfo.MolInfo_biomol..attrs.value 
 ##                                                                                                                            "genomic"
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_annot'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-annot'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-annot_data'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-annot_data_ftable'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Seq-feat'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-feat_comment'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_annot.Seq-annot.Seq-annot_data.Seq-annot_data_ftable.Seq-feat.Seq-feat_comment 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_annot.Seq-annot.Seq-annot_data.Seq-annot_data_ftable.Seq-feat.Seq-feat_comment 
 ##                                           "contains 5.8S ribosomal RNA, internal transcribed spacer 2, and large subunit ribosomal RNA"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We can get the length of the sequence</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="nf">as.integer</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.integer</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
                    </span><span class="s1">'Bioseq_annot'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-annot'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-annot_data'</span><span class="p">,</span><span class="w"> 
                    </span><span class="s1">'Seq-annot_data_ftable'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-feat'</span><span class="p">,</span><span class="w"> 
                    </span><span class="s1">'Seq-feat_location'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-loc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-loc_int'</span><span class="p">,</span><span class="w"> 
@@ -130,174 +116,150 @@
                        </span><span class="s1">'Seq-feat_location'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-loc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-loc_int'</span><span class="p">,</span><span class="w"> 
                        </span><span class="s1">'Seq-interval'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-interval_from'</span><span class="p">,</span><span class="w"> 
                        </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)])</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 351
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 351
+</code></pre></div></div>
 
 <p>Perhaps most definitive we can get the primers</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource_pcr-primers'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRReactionSet'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'PCRReaction'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRReaction_forward'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimerSet'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimer'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'PCRPrimer_seq'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimerSeq'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_pcr-primers.PCRReactionSet.PCRReaction.PCRReaction_forward.PCRPrimerSet.PCRPrimer.PCRPrimer_seq.PCRPrimerSeq 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_pcr-primers.PCRReactionSet.PCRReaction.PCRReaction_forward.PCRPrimerSet.PCRPrimer.PCRPrimer_seq.PCRPrimerSeq 
 ##                                                                                                                                                                                                           "atgcgatacttggtgtgaat"
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource_pcr-primers'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRReactionSet'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'PCRReaction'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRReaction_reverse'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimerSet'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimer'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'PCRPrimer_seq'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PCRPrimerSeq'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_pcr-primers.PCRReactionSet.PCRReaction.PCRReaction_reverse.PCRPrimerSet.PCRPrimer.PCRPrimer_seq.PCRPrimerSeq 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_pcr-primers.PCRReactionSet.PCRReaction.PCRReaction_reverse.PCRPrimerSet.PCRPrimer.PCRPrimer_seq.PCRPrimerSeq 
 ##                                                                                                                                                                                                           "tcctccgcttattgatatgc"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="specimen-location">Specimen location</h3>
 
 <p>Latitude and longitude if provided</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'lat-lon'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'lat-lon'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
 ##                                                                                                                                 "49.158 N 121.594 W"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Country and other geography from the specimen label</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'country'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'country'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>##                                                                                     Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##                                                                                     Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
 ## "Canada: British Columbia, Cascade Mountains, Skagit Range, Foley Peak, south slope, ca. 13 km northwest of north end of Chilliwack Lake, Cascade Mtns, Skagit Range, Foley Peak, south slope, ca. 13 km NW of N end of Chilliwack Lake"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Collection date info</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'collection-date'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">grep</span><span class="p">(</span><span class="s1">'collection-date'</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_subtype.SubSource.SubSource_name 
 ##                                                                                                                                        "21-Sep-1999"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="museumcurration-information">Museum/curration information</h3>
 
 <p>Unique ID</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource_org'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref_orgname'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'OrgName'</span><span class="p">,</span><span class="w"> </span><span class="s1">'OrgName_mod'</span><span class="p">,</span><span class="w"> </span><span class="s1">'OrgMod'</span><span class="p">,</span><span class="w"> </span><span class="s1">'OrgMod_subname'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_orgname.OrgName.OrgName_mod.OrgMod.OrgMod_subname 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_orgname.OrgName.OrgName_mod.OrgMod.OrgMod_subname 
 ##                                                                                                                                                                          "CCDB-24910-B07"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Other database (e.g. BOLD)</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource_org'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref_db'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Dbtag'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Dbtag_db'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_db.Dbtag.Dbtag_db 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_db.Dbtag.Dbtag_db 
 ##                                                                                                                                                    "BOLD"
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_source'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'BioSource'</span><span class="p">,</span><span class="w"> </span><span class="s1">'BioSource_org'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Org-ref_db'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Dbtag'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Dbtag_tag'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Object-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Object-id_str'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_db.Dbtag.Dbtag_tag.Object-id.Object-id_str 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_source.BioSource.BioSource_org.Org-ref.Org-ref_db.Dbtag.Dbtag_tag.Object-id.Object-id_str 
 ##                                                                                                                                                                 "PCUBC113-14.ITS2"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="publication">Publication</h3>
 
 <p>PubMed</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_pub'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Pubdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pubdesc_pub'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub-equiv'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub_article'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Cit-art'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Cit-art_ids'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ArticleIdSet'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ArticleId'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'ArticleId_pubmed'</span><span class="p">,</span><span class="w"> </span><span class="s1">'PubMedId'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_pub.Pubdesc.Pubdesc_pub.Pub-equiv.Pub.Pub_article.Cit-art.Cit-art_ids.ArticleIdSet.ArticleId.ArticleId_pubmed.PubMedId 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_pub.Pubdesc.Pubdesc_pub.Pub-equiv.Pub.Pub_article.Cit-art.Cit-art_ids.ArticleIdSet.ArticleId.ArticleId_pubmed.PubMedId 
 ##                                                                                                                                                                                                      "29299394"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>DOI</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-descr'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seqdesc_pub'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Pubdesc'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pubdesc_pub'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub-equiv'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Pub_article'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Cit-art'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Cit-art_ids'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ArticleIdSet'</span><span class="p">,</span><span class="w"> </span><span class="s1">'ArticleId'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'ArticleId_doi'</span><span class="p">,</span><span class="w"> </span><span class="s1">'DOI'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_pub.Pubdesc.Pubdesc_pub.Pub-equiv.Pub.Pub_article.Cit-art.Cit-art_ids.ArticleIdSet.ArticleId.ArticleId_doi.DOI 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_descr.Seq-descr.Seqdesc.Seqdesc_pub.Pubdesc.Pubdesc_pub.Pub-equiv.Pub.Pub_article.Cit-art.Cit-art_ids.ArticleIdSet.ArticleId.ArticleId_doi.DOI 
 ##                                                                                                                                                                                  "10.3732/apps.1700079"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="sequence-itself">Sequence itself</h3>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
         </span><span class="s1">'Bioseq_inst'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-inst'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-inst_seq-data'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-data'</span><span class="p">,</span><span class="w"> 
         </span><span class="s1">'Seq-data_ncbi2na'</span><span class="p">,</span><span class="w"> </span><span class="s1">'NCBI2na'</span><span class="p">,</span><span class="w"> 
         </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>##                                                         Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_inst.Seq-inst.Seq-inst_seq-data.Seq-data.Seq-data_ncbi2na.NCBI2na 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##                                                         Bioseq-set_seq-set.Seq-entry.Seq-entry_seq.Bioseq.Bioseq_inst.Seq-inst.Seq-inst_seq-data.Seq-data.Seq-data_ncbi2na.NCBI2na 
 ## "E48356E05362DFE0642F995825D1A58A919797A9B464D9B6D55356D67590A9BDABAEA9A13E9556E67936669697039895BA61D1B4610BAEBE0D741DDB9ED3A63D8B644DA91BAC8541A54378FB97D8598552B4A6A345678BF0"
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>The DNA sequence is stored in <code class="highlighter-rouge">ncbi2na</code> format, which is <code class="highlighter-rouge">ASN.1</code> encoded binary. Borrowing from Kinser (2010) we can decode this as follows:</p>
+<p>The DNA sequence is stored in <code class="language-plaintext highlighter-rouge">ncbi2na</code> format, which is <code class="language-plaintext highlighter-rouge">ASN.1</code> encoded binary. Borrowing from Kinser (2010) we can decode this as follows:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># function to parse dna from ASN.1
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># function to parse dna from ASN.1</span><span class="w">
 </span><span class="n">dnaFromASN1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">strsplit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="s1">''</span><span class="p">)[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
     </span><span class="n">x</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'0'</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'AA'</span><span class="w">
@@ -319,67 +281,60 @@
     
     </span><span class="nf">return</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">collapse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">))</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>And test it:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># get ASN.1 formatted sequence
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get ASN.1 formatted sequence</span><span class="w">
 </span><span class="n">asn1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dnaFromASN1</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w">
                             </span><span class="s1">'Bioseq_inst'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-inst'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-inst_seq-data'</span><span class="p">,</span><span class="w"> 
                             </span><span class="s1">'Seq-data'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-data_ncbi2na'</span><span class="p">,</span><span class="w"> </span><span class="s1">'NCBI2na'</span><span class="p">,</span><span class="w"> 
                             </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'.'</span><span class="p">)])</span><span class="w">
 
-</span><span class="c1"># get FASTA sequence
+</span><span class="c1"># get FASTA sequence</span><span class="w">
 </span><span class="n">fasta</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">entrez_fetch</span><span class="p">(</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'nuccore'</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">castilleja</span><span class="o">$</span><span class="n">ids</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">rettype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'fasta'</span><span class="p">)</span><span class="w">
 </span><span class="n">fasta</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="n">strsplit</span><span class="p">(</span><span class="n">fasta</span><span class="p">,</span><span class="w"> </span><span class="s1">'\n'</span><span class="p">)[[</span><span class="m">1</span><span class="p">]][</span><span class="m">-1</span><span class="p">],</span><span class="w"> </span><span class="n">collapse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># compare the two
+</span><span class="c1"># compare the two</span><span class="w">
 </span><span class="n">asn1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">fasta</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## [1] TRUE
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] TRUE
+</code></pre></div></div>
 
 <h2 id="putting-it-all-together">Putting it all together</h2>
 
-<p>Let’s make a function that can take a vector of NCBI IDs and return a list with sequence data, and metadata about the sequence. To start the sequence data could just be a vector of class <code class="highlighter-rouge">character</code> and for each entry in that sequence vector, we could have a row in an accompanying <code class="highlighter-rouge">data.frame</code> with the metadata for that sequence.</p>
+<p>Let’s make a function that can take a vector of NCBI IDs and return a list with sequence data, and metadata about the sequence. To start the sequence data could just be a vector of class <code class="language-plaintext highlighter-rouge">character</code> and for each entry in that sequence vector, we could have a row in an accompanying <code class="language-plaintext highlighter-rouge">data.frame</code> with the metadata for that sequence.</p>
 
-<p>First note, when we call <code class="highlighter-rouge">rentrez::entrez_fetch</code> for multiple IDs, and turn the output into a list, we get a list whose first element contains an entry for each record:</p>
+<p>First note, when we call <code class="language-plaintext highlighter-rouge">rentrez::entrez_fetch</code> for multiple IDs, and turn the output into a list, we get a list whose first element contains an entry for each record:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># get multiple sequences
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get multiple sequences</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">entrez_fetch</span><span class="p">(</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'nuccore'</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">castilleja</span><span class="o">$</span><span class="n">ids</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">],</span><span class="w"> 
                   </span><span class="n">rettype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'native'</span><span class="p">,</span><span class="w"> </span><span class="n">retmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'xml'</span><span class="p">,</span><span class="w"> 
                   </span><span class="n">parsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">xmlToList</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## [1] 3
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] 3
+</code></pre></div></div>
 
 <p>Each record starts with</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
-</span></code></pre>
-</div>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## [1] "Seq-entry" "Seq-entry" "Seq-entry"
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## [1] "Seq-entry" "Seq-entry" "Seq-entry"
+</code></pre></div></div>
 
-<p>So our function to get all records should first use <code class="highlighter-rouge">rentrez::entrez_fetch</code> on all the IDs, then loop over each <code class="highlighter-rouge">Seq-entry</code> and extract the relevant information. We can first write the function to get the relevant information. Let’s assume that each <code class="highlighter-rouge">Seq-entry</code> element has been turned into a vector as before</p>
+<p>So our function to get all records should first use <code class="language-plaintext highlighter-rouge">rentrez::entrez_fetch</code> on all the IDs, then loop over each <code class="language-plaintext highlighter-rouge">Seq-entry</code> and extract the relevant information. We can first write the function to get the relevant information. Let’s assume that each <code class="language-plaintext highlighter-rouge">Seq-entry</code> element has been turned into a vector as before</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">cleanEntrez</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="c1"># starting after `Seq-entry` we now need a shorter base path
-</span><span class="w">    </span><span class="n">basePath</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'Seq-entry_seq.Bioseq'</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cleanEntrez</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># starting after `Seq-entry` we now need a shorter base path</span><span class="w">
+    </span><span class="n">basePath</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'Seq-entry_seq.Bioseq'</span><span class="w">
     
-    </span><span class="c1"># return everything we want
-</span><span class="w">    </span><span class="nf">c</span><span class="p">(</span><span class="w">
+    </span><span class="c1"># return everything we want</span><span class="w">
+    </span><span class="nf">c</span><span class="p">(</span><span class="w">
         </span><span class="n">genbank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">paste</span><span class="p">(</span><span class="n">basePath</span><span class="p">,</span><span class="w"> 
                                        </span><span class="s1">'Bioseq_id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Seq-id_genbank'</span><span class="p">,</span><span class="w"> 
                                        </span><span class="s1">'Textseq-id'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Textseq-id_accession'</span><span class="p">,</span><span class="w"> 
@@ -474,12 +429,11 @@
     </span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span><span class="c1"># test it
+</span><span class="c1"># test it</span><span class="w">
 </span><span class="n">cleanEntrez</span><span class="p">(</span><span class="n">unlist</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]][[</span><span class="m">1</span><span class="p">]]))</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>##                                                                                                                                                                                                                                                                                                                                                            genbank 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##                                                                                                                                                                                                                                                                                                                                                            genbank 
 ##                                                                                                                                                                                                                                                                                                                                                         "MG220179" 
 ##                                                                                                                                                                                                                                                                                                                                                               ncbi 
 ##                                                                                                                                                                                                                                                                                                                                                       "1331395866" 
@@ -515,12 +469,11 @@
 ##                                                                                                                                                                                                                                                                                                                                             "10.3732/apps.1700079" 
 ##                                                                                                                                                                                                                                                                                                                                                           sequence 
 ## "TGCAGAATCCCGTGAACCATCGAGTCTTTGAACGCAAGTTGCGCCCGAAGCCTCACGGCCGAGGGCACGCCTGCCTGGGCGTCACGCATCGCGTCGTCCCCCATCCCGTCCGCTCCGCAAGGGCGTTCGGGTGGTGGGGCGGACATTGGCCCCCCGTGCGCTGCATCGCGCGGCCGGCCTAAATGCGAGCCCGTGGCGACTCACGTCACGACAAGTGGTGGTTGAATCCTCAACTCTCGTGCTGTCATGGCGATTCGAGTCGCACATCGGGCACGTGGTAGACCCAACGGCCCAATCTGATTGTGCCTTCGACCGCGACCCCAGGTCAGGCGGGATCACCCGCTGAGTTTAA"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Now we can bundle this into a function to extract data for multiple records</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1"># function to loop over records, extracting data from each
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># function to loop over records, extracting data from each</span><span class="w">
 </span><span class="n">getGenBankSeq</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">allRec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">entrez_fetch</span><span class="p">(</span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'nuccore'</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ids</span><span class="p">,</span><span class="w"> 
                            </span><span class="n">rettype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'native'</span><span class="p">,</span><span class="w"> </span><span class="n">retmode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'xml'</span><span class="p">,</span><span class="w"> 
@@ -540,12 +493,11 @@
 </span><span class="p">}</span><span class="w">
 
 
-</span><span class="c1"># test it
+</span><span class="c1"># test it</span><span class="w">
 </span><span class="n">getGenBankSeq</span><span class="p">(</span><span class="n">castilleja</span><span class="o">$</span><span class="n">ids</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>## $seq
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>## $seq
 ## [1] "TGCAGAATCCCGTGAACCATCGAGTCTTTGAACGCAAGTTGCGCCCGAAGCCTCACGGCCGAGGGCACGCCTGCCTGGGCGTCACGCATCGCGTCGTCCCCCATCCCGTCCGCTCCGCAAGGGCGTTCGGGTGGTGGGGCGGACATTGGCCCCCCGTGCGCTGCATCGCGCGGCCGGCCTAAATGCGAGCCCGTGGCGACTCACGTCACGACAAGTGGTGGTTGAATCCTCAACTCTCGTGCTGTCATGGCGATTCGAGTCGCACATCGGGCACGTGGTAGACCCAACGGCCCAATCTGATTGTGCCTTCGACCGCGACCCCAGGTCAGGCGGGATCACCCGCTGAGTTTAA"                                                                                                
 ## [2] "TGCAGAATCCCGTGAACCATCGAGTCTTTGAACGCAAGTTGCGCCCGAAGCCATTAGGTTGAGGGCACGTCTGCCTGGGCGTCACATATCGTTGCCCTATGCCCAACGCCTAGTGATAGGCACTGTGCAGGGCGAATGTTGGCTTCCCGTGAGCGTTGTTGTCTCATGGTTGGCTGAAAACCGAGTCCTTGGTAGGGTGTTTGCCATGATAGATGGTGGTTGTGTGACCCACGAGACCGATCATGTGCGTCTCTACCAGATTTGGCCTCCAGTGACCCACGTGCGTCTTTGAGCGCTCATGACGAGACCTCAGGTCAGGCGGGGCTACCCGCTGAATTTAAGCATATCAATAAGCGGAGGAAAAGAAACTAACAAGGATTCCCTTAGTAACGGCGAGCGAACCGGGAAGAGCCCACCATGAGAATCGGTCGCCCCTGGCGTTCGAAAA"
 ## [3] "GCAAGTTGCGCCCGAAGCCTCACGGCCGAGGGCACGCCTGCCTGGGCGTCACGCATCGCGTCGTCCCCCATCCCGTCCGCTCCGCAAGGGCGTTCGGGTGGTGGGGCGGACATTGGCCCCCCGTGCGCTGCGTCGCGCGGCCGGCCTAAATGCGAGCCCGTGGCGACTCACGTCACGACAAGTGGTGGTTGAATCCTCAACTCTCGTGCTGTTGTGGCGATTCGAGTCGCACATCGGGCACGTGGTAGACCCAACGGCCCAATCTGATTGTGCCTTCGACCGCGACCCCAGGTCAGGCGGGATCACCCGCTGAGTTTAAA"                                                                                                                                
@@ -587,8 +539,7 @@
 ## 1 10.3732/apps.1700079
 ## 2 10.3732/apps.1700079
 ## 3 10.3732/apps.1700079
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="references">References</h2>
 

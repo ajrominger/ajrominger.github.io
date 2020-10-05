@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/bower_components/filament-sticky/fixedsticky.css">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ajrominger.github.io/2017/08/10/notes_reading.html">
-  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://ajrominger.github.io/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2017/08/10/notes_reading.html">
+  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://localhost:4000/feed.xml">
 </head>
 
 
@@ -37,8 +37,6 @@
 
       <div class="trigger">
         
-        
-          
         
           
         
@@ -76,7 +74,7 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Notes on an interesting morphospace evolution paper</h1>
-    <p class="post-meta"><time datetime="2017-08-10T00:00:00-06:00" itemprop="datePublished">Aug 10, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
+    <p class="post-meta"><time datetime="2017-08-10T00:00:00-04:00" itemprop="datePublished">Aug 10, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -86,7 +84,7 @@
 
 <p>A simulatin proof of concept:</p>
 
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ape</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ape</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">geiger</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">paleotree</span><span class="p">)</span><span class="w">
 
@@ -98,8 +96,7 @@
 </span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">runif</span><span class="p">(</span><span class="n">ntrait</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w">
 </span><span class="n">traits</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sim.char</span><span class="p">(</span><span class="n">tre</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)[,</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
 </span><span class="n">traitsPCA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">prcomp</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span><span class="o">$</span><span class="n">x</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">]</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>Here’s the idea for the simulation:</p>
 

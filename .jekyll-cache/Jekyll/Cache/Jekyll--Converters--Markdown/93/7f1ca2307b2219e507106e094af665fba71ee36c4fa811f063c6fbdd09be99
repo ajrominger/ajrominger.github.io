@@ -1,0 +1,29 @@
+I"�<p>In a recent paper (Cooney et al. 2017), the authors argue that evolution of bill shape in birds confirms the hypothesis that adaptive radiation happens early in a clade’s diversification, filling niche space, and eventually leading to a slow down in diversification once the niche space becomes crowded. Their primary result supporting this claim is a re-constructed rapid increase in disparity followed by a slow-down in dispartiy across the tree of birds. This result they compare to null models based on Brownian motion along the given phylogeny, finding that disparity increases monotonically under the null model, in comparison to the sigmoidal pattern observed in the real data.</p>
+
+<p>My question is: could the observed pattern nonetheless result from a process that does not depend on the hypothesis that niche space filling drives diversification slow-downs? One could imagine that this is possible becuase extinct lineages leave no trace of thier morpology and contribution to disparity. So even if the disparity through time plot is different from Brownian motion, could the niche space occupancy still be largely constant through time?</p>
+
+<p>A simulatin proof of concept:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ape</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">geiger</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">paleotree</span><span class="p">)</span><span class="w">
+
+</span><span class="n">treFull</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rphylo</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">fossils</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">tre</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">drop.fossil</span><span class="p">(</span><span class="n">treFull</span><span class="p">)</span><span class="w">
+
+</span><span class="n">ntrait</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">20</span><span class="w">
+</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.matrix</span><span class="p">(</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">dist</span><span class="p">(</span><span class="n">matrix</span><span class="p">(</span><span class="n">runif</span><span class="p">(</span><span class="n">ntrait</span><span class="o">*</span><span class="m">2</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">))))</span><span class="w">
+</span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">runif</span><span class="p">(</span><span class="n">ntrait</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w">
+</span><span class="n">traits</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sim.char</span><span class="p">(</span><span class="n">tre</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)[,</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+</span><span class="n">traitsPCA</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">prcomp</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span><span class="o">$</span><span class="n">x</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Here’s the idea for the simulation:</p>
+
+<ul>
+  <li>simulate many correlated traits through time</li>
+  <li>look at how making a PCA for only extant taxa vs. extant and extinct taxa influences disparity through time</li>
+</ul>
+
+<p>Cooney, Christopher R, Jen A Bright, Elliot JR Capp, Angela M Chira, Emma C Hughes, Christopher JA Moody, Lara O Nouri, Zoë K Varley, and Gavin H Thomas. 2017. “Mega-Evolutionary Dynamics of the Adaptive Radiation of Birds.” <em>Nature</em> 542 (7641). Nature Research: 344–47.</p>
+:ET

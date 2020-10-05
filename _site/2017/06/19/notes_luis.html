@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
   <link rel="stylesheet" href="/bower_components/filament-sticky/fixedsticky.css">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://ajrominger.github.io/2017/06/19/notes_luis.html">
-  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://ajrominger.github.io/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2017/06/19/notes_luis.html">
+  <link rel="alternate" type="application/rss+xml" title="Andy Rominger" href="http://localhost:4000/feed.xml">
 </head>
 
 
@@ -37,8 +37,6 @@
 
       <div class="trigger">
         
-        
-          
         
           
         
@@ -76,7 +74,7 @@
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Notes from a meeting with Luis Bettencourt</h1>
-    <p class="post-meta"><time datetime="2017-06-19T00:00:00-06:00" itemprop="datePublished">Jun 19, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
+    <p class="post-meta"><time datetime="2017-06-19T00:00:00-04:00" itemprop="datePublished">Jun 19, 2017</time> • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">A. J. Rominger</span></span></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
@@ -92,16 +90,16 @@
 
 <h2 id="two-approaches-to-exploring-dynamics">Two approaches to exploring dynamics</h2>
 
-<h3 id="assume-a-given-ecological-theory-is-right">1. Assume a given ecological theory is right.</h3>
+<h3 id="1-assume-a-given-ecological-theory-is-right">1. Assume a given ecological theory is right.</h3>
 
 <p>Add dynamics and see what quantities are conserved and figure out how they are conserved—is it the absolute maximum that’s conserved or the average; if the average, we’re dealing with something like the canonical ensemble.</p>
 
-<h3 id="what-is-the-simpliest-physical-systems-that-evolves">2. What is the simpliest physical systems that evolves?</h3>
+<h3 id="2-what-is-the-simpliest-physical-systems-that-evolves">2. What is the simpliest physical systems that evolves?</h3>
 
 <p>The answer is effecitively Maxwell’s demon. Luis has been working on this in a different context, but the logic applies. Take a device that collects energy but expends energy in the process.
-<script type="math/tex">\\frac{\\Delta E}{\\Delta t} = y - c = rE</script>
+\(\\frac{\\Delta E}{\\Delta t} = y - c = rE\)
  where <em>y</em> is the process by which energy is gained and <em>c</em> is the cost of gaining that energy. The big assumption is that this goes like a rate constant times energy. If that’s true, then solving that difference equation leads to
-<script type="math/tex">\\frac{1}{t} \\frac{\\text{ln}E(t)}{E\_0} = \\frac{1}{t}\\int\_0^t r(t')dt'</script>
+\(\\frac{1}{t} \\frac{\\text{ln}E(t)}{E\_0} = \\frac{1}{t}\\int\_0^t r(t')dt'\)
  The right hand side of this equation can be thought of as fitness, and thus scaled into individuals.</p>
 
 <p>Assuming the environment is variable, <em>r</em> will be variable, and because we integrate over <em>r</em> this leads to lognormal <em>E</em>. Thus if <em>E</em> is really what fitness is, we might expect lognormal population sizes. Something is most likely amiss here, as we don’t often see lognormals, except in transient systems. Zipf behavior is also possible if <em>r</em> is presumed to be constant. Work by Felsenstein (1978) uses similar logic and might be worth exploring for parallels, and also to see what SAD is suggested by his approach.</p>
